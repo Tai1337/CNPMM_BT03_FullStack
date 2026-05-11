@@ -1,4 +1,4 @@
-#Nguyễn Phước Tài MSSV: 23110306
+# Nguyễn Phước Tài MSSV: 23110306
 # FullStack NodeJS & ReactJS - MongoDB Auth App
 
 Dự án này là một ứng dụng Web FullStack được xây dựng bằng **Node.js, Express, MongoDB** ở phía Backend và **ReactJS (Vite), Ant Design** ở phía Frontend. Dự án triển khai tính năng xác thực người dùng bao gồm: Đăng ký, Đăng nhập (JWT), Quên mật khẩu và Đặt lại mật khẩu qua Email.
