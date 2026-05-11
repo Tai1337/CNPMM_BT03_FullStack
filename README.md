@@ -1,60 +1,95 @@
-# CRUD Express + Sequelize + MySQL
+# FullStack NodeJS & ReactJS - MongoDB Auth App
 
-Project mẫu triển khai CRUD sử dụng Node.js, Express, Sequelize và MySQL.
+Dự án này là một ứng dụng Web FullStack được xây dựng bằng **Node.js, Express, MongoDB** ở phía Backend và **ReactJS (Vite), Ant Design** ở phía Frontend. Dự án triển khai tính năng xác thực người dùng bao gồm: Đăng ký, Đăng nhập (JWT), Quên mật khẩu và Đặt lại mật khẩu qua Email.
 
-## Mô tả
-- Ứng dụng minh họa cách tạo, đọc, cập nhật, xóa (CRUD) người dùng bằng Express và Sequelize.
-- Cấu trúc dự án rõ ràng để bạn dễ hiểu và mở rộng.
+## Công nghệ sử dụng
+- **Backend**: Node.js, Express.js, Mongoose (MongoDB), JSON Web Token (JWT), bcryptjs, nodemailer.
+- **Frontend**: ReactJS (Vite), React Router DOM, Axios, Ant Design.
+- **Database**: MongoDB.
 
-## Yêu cầu
-- Node.js >= 14
-- MySQL server
-
-## Cài đặt
-1. Clone repository hoặc tải source về máy.
-2. Cài dependencies:
-
-```bash
-npm install
-```
-
-3. Cấu hình kết nối cơ sở dữ liệu: chỉnh sửa src/config/config.json theo thông tin MySQL của bạn.
-
-4. Tạo database và chạy migrations (nếu sử dụng Sequelize CLI). Nếu không có migration tự động, tạo database thủ công.
-
-## Cấu trúc chính
-- src/ - mã nguồn chính
-  - server.js - entry ứng dụng
-  - config/ - cấu hình (ví dụ config.json, configdb.js)
-  - controller/ - controller xử lý request
-  - models/ - định nghĩa model Sequelize
-  - route/ - định nghĩa route
-  - services/ - logic CRUD chung
-  - views/ - template EJS
-
-## Chạy ứng dụng
-
-```bash
-# khởi động
-node src/server.js
-
-# hoặc dùng script nếu có trong package.json
-npm start
-```
-
-Sau khi chạy, mở trình duyệt tới http://localhost:3000 (hoặc port cấu hình trong server.js).
-
-## Thêm thông tin
-- Routes chính nằm trong src/route/web.js.
-- Model user: src/models/user.js.
-- Service CRUD: src/services/CRUDService.js.
-
-## Góp ý & Phát triển
-- Muốn thêm API JSON RESTful, có thể tạo route API riêng và trả JSON từ controller.
-- Thêm kiểm thử tự động (jest/mocha) để bảo đảm tính ổn định.
-
-## License
-- Mở (do tác giả tự chọn). Thêm file LICENSE nếu muốn cụ thể hóa.
+## Tính năng chính
+- **Đăng ký (Register)**: Cho phép người dùng mới tạo tài khoản.
+- **Đăng nhập (Login)**: Xác thực người dùng, trả về JWT Token.
+- **Quên mật khẩu (Forgot Password)**: Gửi link chứa Token giới hạn thời gian vào email người dùng.
+- **Đặt lại mật khẩu (Reset Password)**: Kiểm tra Token hợp lệ và đặt mật khẩu mới.
+- **Bảo vệ Route (Private Route)**: Chỉ cho phép truy cập Dashboard (Home) khi đã đăng nhập có Token hợp lệ.
 
 ---
-Nếu bạn muốn, tôi có thể: cấu hình package.json scripts, thêm hướng dẫn migration, hoặc tạo file LICENSE.
+
+## 🛠 Hướng dẫn Cài đặt & Chạy ứng dụng
+
+### Yêu cầu hệ thống
+- Đã cài đặt **Node.js** (>= 16).
+- Đã cài đặt và đang chạy **MongoDB** service (hoặc có chuỗi kết nối MongoDB Atlas).
+
+### 1. Cài đặt & Cấu hình Backend
+
+1. Mở Terminal tại thư mục gốc của dự án.
+2. Cài đặt các thư viện phụ thuộc:
+   ```bash
+   npm install
+   ```
+3. Tạo và chỉnh sửa file `.env` ở thư mục gốc với nội dung sau (nếu chưa có):
+   ```env
+   PORT=8080
+   MONGODB_URI=mongodb://127.0.0.1:27017/fullstack_db
+   JWT_SECRET=my_super_secret_jwt_key
+   JWT_EXPIRES_IN=1d
+   EMAIL_USER=your_email@gmail.com
+   EMAIL_PASS=your_app_password
+   ```
+4. Chạy Backend Server:
+   ```bash
+   npm start
+   ```
+   > 🚀 Server sẽ chạy tại: `http://localhost:8080`
+
+---
+
+### 2. Cài đặt & Chạy Frontend
+
+1. Mở một Terminal mới, di chuyển vào thư mục `ReactJS01`:
+   ```bash
+   cd ReactJS01
+   ```
+2. Cài đặt các thư viện Frontend:
+   ```bash
+   npm install
+   ```
+3. Chạy Frontend Server:
+   ```bash
+   npm run dev
+   ```
+   > 🚀 Frontend sẽ chạy tại: `http://localhost:5173`
+
+---
+
+## Cấu trúc thư mục
+
+```
+CNPMM_BT03_FullStack/
+├── .env                       # Cấu hình biến môi trường
+├── package.json               # Package Backend
+├── src/                       # Mã nguồn Backend
+│   ├── config/
+│   │   └── database.js        # File cấu hình kết nối MongoDB
+│   ├── controllers/           # Xử lý Logic Request Backend
+│   ├── middleware/            # Check JWT Token Auth
+│   ├── models/                # Schema User (Mongoose)
+│   ├── routes/                # API Endpoints
+│   ├── services/              # Xử lý Logic thao tác DB, gửi Mail
+│   └── server.js              # Entry file backend
+├── FullStack_Auth_API.postman_collection.json  # Postman Collection để test API
+└── ReactJS01/                 # Mã nguồn Frontend (React Vite)
+    ├── package.json
+    ├── src/
+    │   ├── components/        # Chứa Layout, Context
+    │   ├── pages/             # Các trang (Login, Register, Home...)
+    │   └── util/              # Cấu hình Axios
+```
+
+## API Testing với Postman
+Bạn có thể import file `FullStack_Auth_API.postman_collection.json` vào Postman để thử nghiệm toàn bộ các API. Collection này đã cấu hình sẵn việc tự động bắt Token sau khi đăng nhập thành công.
+
+## Tác giả
+- Nguyễn Phước Tài
